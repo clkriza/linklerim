@@ -9,18 +9,11 @@
   ],
   "links": [
     {
-      "title": "Örnek Ürün – Amazon",
-      "emoji": "🎧",
-      "imageUrl": "",
-      "desc": "%15 indirimli",
-      "url": "https://affiliate-linkin.com"
-    },
-    {
-      "title": "Başka Ürün – Trendyol",
-      "emoji": "📱",
-      "imageUrl": "",
-      "desc": "",
-      "url": "https://affiliate-linkin2.com"
+      "title": "Logitech G PRO X Superlight 2C – Amazon",
+      "emoji": "🖱️",
+      "imageUrl": "https://m.media-amazon.com/images/I/51yIx9LUTFL._AC_SX522_.jpg",
+      "desc": "Satıcı ve Gönderici Amazon",
+      "url": "https://amzn.to/4toJ3jS"
     }
   ]
 }
