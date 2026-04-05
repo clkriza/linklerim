@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Linklerim</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0c0c0c;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    padding: 2.5rem 1.25rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .bg-glow {
+    position: fixed;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(120,80,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content { position: relative; z-index: 1; width: 100%; }
+
+  /* profil */
+  .profile { text-align: center; margin-bottom: 2rem; }
+
+  .avatar-wrap {
+    width: 84px; height: 84px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    position: relative;
+  }
+  .avatar-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c5cfc, #e040fb, #ff6b6b);
+  }
+  .avatar-inner {
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    overflow: hidden;
+  }
+  .avatar-inner img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .profile-name {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 5px;
+  }
+  .profile-bio {
+    color: #888;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .socials {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+  .social-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+  .social-btn:hover { background: #2a2a2a; }
+
+  /* linkler */
+  .links { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #161616;
+    border: 1px solid #232323;
+    border-radius: 16px;
+    padding: 13px 16px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .link-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,92,252,0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .link-card:hover { background: #1d1d1d; border-color: #333; transform: translateY(-1px); }
+  .link-card:active { transform: translateY(0); }
+
+  .link-img {
+    width: 46px; height: 46px;
+    border-radius: 11px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #252525;
+  }
+  .link-emoji {
+    width: 46px; height: 46px;
+    border-radius: 11px;
+    background: #252525;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .link-text { flex: 1; min-width: 0; }
+  .link-title {
+    color: #f0f0f0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .link-desc {
+    color: #666;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  .link-arrow { color: #444; font-size: 18px; flex-shrink: 0; }
+
+  .footer {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: #2a2a2a;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="page">
+  <div class="content">
+    <div class="profile">
+      <div class="avatar-wrap">
+        <div class="avatar-inner" id="avatar-el">✦</div>
+      </div>
+      <div class="profile-name" id="name-el">...</div>
+      <div class="profile-bio" id="bio-el"></div>
+      <div class="socials" id="socials-el"></div>
+    </div>
+    <div class="links" id="links-el"></div>
+    <div class="footer">✦</div>
+  </div>
+</div>
+
+<script>
+fetch('links.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    document.title = d.name || 'Linklerim';
+    document.getElementById('name-el').textContent = d.name || '';
+    document.getElementById('bio-el').textContent  = d.bio  || '';
+
+    const av = document.getElementById('avatar-el');
+    if (d.avatarUrl) {
+      av.innerHTML = `<img src="${d.avatarUrl}" onerror="this.parentElement.textContent='✦'">`;
+    }
+
+    const socials = document.getElementById('socials-el');
+    socials.innerHTML = (d.socials || [])
+      .filter(s => s.url)
+      .map(s => `<a class="social-btn" href="${s.url}" target="_blank" rel="noopener" title="${s.label}">${s.icon}</a>`)
+      .join('');
+
+    const linksEl = document.getElementById('links-el');
+    linksEl.innerHTML = (d.links || []).map(l => `
+      <a class="link-card" href="${l.url}" target="_blank" rel="noopener">
+        ${l.imageUrl
+          ? `<img class="link-img" src="${l.imageUrl}" onerror="this.outerHTML='<div class=link-emoji>${l.emoji||'🔗'}</div>'">`
+          : `<div class="link-emoji">${l.emoji || '🔗'}</div>`}
+        <div class="link-text">
+          <div class="link-title">${l.title}</div>
+          ${l.desc ? `<div class="link-desc">${l.desc}</div>` : ''}
+        </div>
+        <div class="link-arrow">›</div>
+      </a>
+    `).join('');
+  });
+</script>
+</body>
+</html>

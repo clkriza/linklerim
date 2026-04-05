@@ -1,0 +1,26 @@
+{
+  "name": "@kullaniciadın",
+  "bio": "Tech & Dijital Pazarlama",
+  "avatarUrl": "",
+  "socials": [
+    { "icon": "📸", "label": "Instagram", "url": "https://instagram.com/kullanici" },
+    { "icon": "▶️", "label": "YouTube",   "url": "https://youtube.com/@kanal" },
+    { "icon": "🎵", "label": "TikTok",    "url": "https://tiktok.com/@kullanici" }
+  ],
+  "links": [
+    {
+      "title": "Örnek Ürün – Amazon",
+      "emoji": "🎧",
+      "imageUrl": "",
+      "desc": "%15 indirimli",
+      "url": "https://affiliate-linkin.com"
+    },
+    {
+      "title": "Başka Ürün – Trendyol",
+      "emoji": "📱",
+      "imageUrl": "",
+      "desc": "",
+      "url": "https://affiliate-linkin2.com"
+    }
+  ]
+}
